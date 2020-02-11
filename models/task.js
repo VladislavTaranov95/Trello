@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('../config/db');
 
-const TaskShema = mongoose.Schema({
+const TaskSchema = mongoose.Schema({
   title: {
     type: String,
     default: "No title"
@@ -12,7 +12,7 @@ const TaskShema = mongoose.Schema({
   }
 });
 
-const Task = module.exports = mogoose.model('Task', 'TaskShema');
+const Task = module.exports = mongoose.model('Task', TaskSchema);
 
 module.exports.getTaskById = function(id, callback) {
   Task.findById(id, callback);
