@@ -1,7 +1,8 @@
 const express = require('express');
 const config = require('./config/db');
 const mongoose = require('mongoose');
-const Task = require('./models/task')
+const Task = require('./models/task');
+const urls = require('./routes/urls');
 
 const app = express();
 
@@ -20,22 +21,7 @@ mongoose.connection.on('error', (err) => {
   console.log("No connection! Error: " + err);
 })
 
-//Отслеживаем URl главной страницы
-app.post('/', (req, res) => {
-  res.send("Main page");
-
-  let newTask = new Task({
-    title: req.body.title,
-    description: req.body.description
-  });
-
-  Task.addTask(newTask, (err, task) => {
-    if(err)
-      res.json({ success: false, message: "Error adding new task." });
-    else
-      res.json({ success: true, message: "New task successfully added." });
-  })
-});
+app.use('/', urls);
 
 //Запускаем сервер
 app.listen(port, () => {
