@@ -13,3 +13,16 @@ const TaskShema = mongoose.Schema({
 });
 
 const Task = module.exports = mogoose.model('Task', 'TaskShema');
+
+module.exports.getTaskById = function(id, callback) {
+  Task.findById(id, callback);
+};
+
+module.exports.getTaskByTitle = function(title, callback) {
+  const query = { title: title };
+  Task.findById(query, callback);
+};
+
+module.exports.addTask = function(newTask, callback) {
+  newTask.save(callback);
+};
