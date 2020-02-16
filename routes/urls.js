@@ -1,21 +1,14 @@
 //Отслеживаем URl главной страницы
 const express = require('express');
 const router = express.Router();
+const controllerTask = require('../controllers/task');
 
-router.post('/', (req, res) => {
-  res.send("Main page");
+router.post('/', controllerTask.addTask);
+router.get('/', controllerTask.getAllTasks);
 
-  let newTask = new Task({
-    title: req.body.title,
-    description: req.body.description
-  });
 
-  Task.addTask(newTask, (err, task) => {
-    if(err)
-      res.json({ success: false, message: "Error adding new task." });
-    else
-      res.json({ success: true, message: "New task successfully added." });
-  })
+router.get('/', (res, req) => {
+  res.send("<h2>Main page</h2>");
 });
 
 module.exports = router;
